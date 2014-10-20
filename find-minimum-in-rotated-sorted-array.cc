@@ -17,7 +17,9 @@ using namespace std;
 // +-------------------->
 class Solution {
 public:
-    int findMin(const vector<int> &a, int start, int end) {
+    int findMin(vector<int> &a) {
+		int start = 0, end = a.size() - 1;
+
         while (start < end) {
             int mid = (end - start) / 2 + start;
 
@@ -34,10 +36,6 @@ public:
         }
 
         return a[start];
-    }
-
-    int findMin(vector<int> &num) {
-        return findMin(num, 0, num.size() - 1);
     }
 };
 
