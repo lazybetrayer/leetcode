@@ -11,7 +11,7 @@ public:
 	int minDistance(string word1, string word2) {
 		int m = word1.size();
 		int n = word2.size();
-		// dp[i][j]为word1[0...i-1](长途为i)和word2[0...j-1](长度为j)的编辑距离
+		// dp[i][j]为word1[0...i-1](长度为i)和word2[0...j-1](长度为j)的编辑距离
 		// dp[0][0]=0
 		// dp[i][0]=i
 		// dp[0][j]=j
