@@ -19,24 +19,24 @@ class Solution {
 public:
 	bool isInterleave(const string &s1, const string &s2, const string &s3) {
 #if 1
-		// TODO: ????
-		// https://plus.google.com/102297470789929488451/posts/iiXTbKhfAKn
-		if (s1.size() + s2.size() != s3.size())
-			return false;
+		// O(m*n) time, O(n) space
+		int m = s1.size();
+		int n = s2.size();
 
-		bool yes[s2.size()+1];
-		yes[0] = true;
+		if (s3.size() != m + n) { return false; }
 
-		for (int i = 1; i <= s2.size(); ++ i)
-			yes[i] = (s2[i-1] ==  s3[i-1]);
-
-		for (int i = 1; i <= s1.size(); ++ i){
-			yes[0] = (s1[i-1] ==  s3[i-1]);
-			for (int j = 1; j <= s2.size(); ++ j)
-				yes[j] = (yes[j-1] && s2[j-1] == s3[i+j-1]) || \
-						 (yes[j] && s1[i-1] == s3[i+j-1]);
+		vector<bool> dp(n+1);
+		dp[0] = true;
+		for (int j = 1; j <= n; j++) {
+			dp[j] = dp[j-1] && s3[j-1] == s2[j-1]; // dp[0][j]
 		}
-		return yes[s2.size()];
+		for (int i = 1; i <= m; i++) {
+			dp[0] = dp[0] && s3[i-1] == s1[i-1]; // dp[i][0]
+			for (int j = 1; j <= n; j++) {
+				dp[j] = (s3[i+j-1] == s1[i-1] && dp[j]) || (s3[i+j-1] == s2[j-1] && dp[j-1]);
+			}
+		}
+		return dp[n];
 #else
 		size_type m = s1.size();
 		size_type n = s2.size();
